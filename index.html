@@ -16,7 +16,7 @@
 			<div class="underline"></div>
 			<div class="slider-wrapper">
 				<div class="slider-images">
-					<div class="companies-hor-item"><img src="img/1.jpg" alt="123" title="123"></div>
+					<div class="companies-hor-item"><img src="img/1.jpg" alt=""></div>
 					<div class="companies-hor-item"><img src="img/2.jpg" alt=""></div>
 					<div class="companies-hor-item"><img src="img/3.jpg" alt=""></div>
 					<div class="companies-hor-item"><img src="img/4.jpg" alt=""></div>
@@ -66,8 +66,7 @@
 					<div class="companies-hor-item"><img src="img/48.jpg" alt=""></div>
 					<div class="companies-hor-item"><img src="img/49.jpg" alt=""></div>
 					<div class="companies-hor-item"><img src="img/50.jpg" alt=""></div>
-					<div class="companies-hor-item"><img src="img/51.jpg" alt=""></div>
-				</div>
+					<div class="companies-hor-item"><img src="img/51.jpg" alt=""></div></div>
 				<div class="btns">
 <!--					стрелочки-кнопочки, которые пользователь сам создает-->
 <!--					<button id="test-left"> < </button>-->
@@ -89,9 +88,12 @@
 			// next: '#test-right',
 			slidesToShow: 4,
 			infinity: true,
+			cycle: false, // без "infinity: true" работать не будет
+			autoplay: false,
+			timeToChangeSlide: 5,
 			responsive: [{
 				breakpoint: 1024,
-				slideToShow: 5
+				slideToShow: 3
 			},
 			{
 				breakpoint: 768,

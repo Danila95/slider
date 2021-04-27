@@ -9,12 +9,18 @@ class SliderCarousel {
 		next,
 		prev,
 		infinity = false,
+		cycle = false,
+		autoplay = false,
+		timeToChangeSlide = 5,
 		position = 0,
 		slidesToShow = 3,
 		responsive = []
 		}){ // конструктор задает свойства для нового создаваемого объекта из этого класса (зададим свойства, которые будет получать объект)
 		if ( !main || !wrap) { // проверяем на наличие необходимых элементов
 			console.warn('slider-carusel: Необходимо два свойства "main" и "wrap"! ');
+		}
+		if ( !infinity && cycle) { // проверяем свойства cycle и infinity
+			console.warn('slider-carusel: без свойства "infinity: true" свойство cycle работать не будет ');
 		}
 		this.main = document.querySelector(main);
 		this.wrap = document.querySelector(wrap);
@@ -26,6 +32,9 @@ class SliderCarousel {
 		this.options = {
 			position, // свойство, которое отслеживает положение слайдера
 			infinity,
+			cycle,
+			autoplay,
+			timeToChangeSlide,
 			widthSlide: Math.floor(100 / this.slidesToShow), // свойство, которое вычисляет ширину слайда
 			maxPosition: this.slides.length - this.slidesToShow
 		};
@@ -33,8 +42,11 @@ class SliderCarousel {
 	}
 
 	init() { // главный метод запускающий слайдер
-		this.addGloClass()
+		this.addGloClass();
 		this.addStyle();
+
+		if (this.options.autoplay)
+			this.autoPlay();
 
 		if (this.prev && this.next) 
 			this.controlSlider();
@@ -82,36 +94,71 @@ class SliderCarousel {
 		this.next.addEventListener('click', this.nextSlider.bind(this));
 	}
 
+	autoPlay() {
+		setInterval(() => {
+			if (this.options.infinity || this.options.position < this.options.maxPosition){
+				++this.options.position;
+				console.log(this.options.position);
+
+				// здесь нужно как-то организовать правильное перемещение dom-elements
+				if (this.options.position > this.options.maxPosition) {
+					//если cycle:true - включаем бесконечное прокручивание
+					if (this.options.cycle){
+						// console.log('max = '+ this.options.maxPosition); // отладка
+						let firstChild = this.wrap.firstElementChild;
+						console.log(firstChild);
+						this.wrap.appendChild(firstChild);
+					} else
+						this.options.position = 0;
+				}
+
+				this.wrap.style.transform = `translateX(-${this.options.position * this.options.widthSlide}%)`;
+			}
+		}, this.options.timeToChangeSlide * 1000);
+	}
+
 	prevSlider() {
 		if (this.options.infinity || this.options.position > 0) {
 			--this.options.position;
 			console.log(this.options.position);
-			if (this.options.position < 0)
-				this.options.position = this.options.maxPosition;
-			this.wrap.style.transform = `translateX(-${this.options.position * this.options.widthSlide}%)`;
-		}
-	}
-
-	nextSlider() {
-		if (this.options.infinity || this.options.position < this.options.maxPosition) {
-			console.log(this.slides);
-			++this.options.position;
-			console.log(this.options.position);
-			// здесь нужно как-то организовать перемещение dom-elements
-			if (this.options.position > this.options.maxPosition) {
-				// console.log('max = '+ this.options.maxPosition); // отладка
-				this.options.position = 0; // это потом нужно будет убрать
-				// const maxRightSlide = this.slidesToShow + this.options.position; // порядковый номер, крайнего правого
-				// // след. слайда
-				// console.log(this.slides[maxRightSlide]);
-				// console.log('new 0 =' + this.slides[0]);
+			if (this.options.position < 0){
+				//если cycle:true - включаем бесконечное прокручивание
+				if (this.options.cycle){
+					let firstChild = this.wrap.firstElementChild;
+					const lastChild = this.wrap.lastElementChild;
+					console.log(lastChild);
+					// this.wrap.appendChild(lastChild);
+					this.wrap.insertBefore(lastChild, firstChild);
+				} else
+					this.options.position = this.options.maxPosition;
 			}
 			this.wrap.style.transform = `translateX(-${this.options.position * this.options.widthSlide}%)`;
 		}
 	}
 
+	nextSlider() {
+		if (this.options.infinity || this.options.position < this.options.maxPosition){
+			++this.options.position;
+			console.log(this.options.position);
 
-	addArrow() { // метод, который добавляет свои стрелочки по дефолту
+			// здесь нужно как-то организовать правильное перемещение dom-elements
+			if (this.options.position > this.options.maxPosition) {
+				//если cycle:true - включаем бесконечное прокручивание
+				if (this.options.cycle){
+					// console.log('max = '+ this.options.maxPosition); // отладка
+					let firstChild = this.wrap.firstElementChild;
+					console.log(firstChild);
+					this.wrap.appendChild(firstChild);
+				} else
+					this.options.position = 0;
+			}
+
+			this.wrap.style.transform = `translateX(-${this.options.position * this.options.widthSlide}%)`;
+		}
+	}
+
+
+	addArrow(){ // метод, который добавляет свои стрелочки по дефолту
 		this.prev = document.createElement('button');
 		this.next = document.createElement('button');
 		this.prev.className = 'glo-slider__prev';
