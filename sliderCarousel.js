@@ -48,6 +48,9 @@ class SliderCarousel {
 		if (this.options.autoplay)
 			this.autoPlay();
 
+		if (this.options.position !== 0) //вычисляем позицию нахождения слайдера при первом запуске слайдера
+			this.slipSlider();
+
 		if (this.prev && this.next) 
 			this.controlSlider();
 			else {
@@ -94,7 +97,7 @@ class SliderCarousel {
 		this.next.addEventListener('click', this.nextSlider.bind(this));
 	}
 
-	autoPlay() {
+	autoPlay() { //функция, которая автоматически перелистывает слайды, через заданный промежуток времени
 		setInterval(() => {
 			if (this.options.infinity || this.options.position < this.options.maxPosition){
 				++this.options.position;
@@ -112,7 +115,7 @@ class SliderCarousel {
 						this.options.position = 0;
 				}
 
-				this.wrap.style.transform = `translateX(-${this.options.position * this.options.widthSlide}%)`;
+				this.slipSlider();
 			}
 		}, this.options.timeToChangeSlide * 1000);
 	}
@@ -132,7 +135,7 @@ class SliderCarousel {
 				} else
 					this.options.position = this.options.maxPosition;
 			}
-			this.wrap.style.transform = `translateX(-${this.options.position * this.options.widthSlide}%)`;
+			this.slipSlider();
 		}
 	}
 
@@ -153,8 +156,12 @@ class SliderCarousel {
 					this.options.position = 0;
 			}
 
-			this.wrap.style.transform = `translateX(-${this.options.position * this.options.widthSlide}%)`;
+			this.slipSlider();
 		}
+	}
+
+	slipSlider(){ // функция, которая сдвигает слайды вправо/влево
+		this.wrap.style.transform = `translateX(-${this.options.position * this.options.widthSlide}%)`;
 	}
 
 
