@@ -59,6 +59,7 @@ class SliderCarousel {
 			}
 		if (this.responsive)
 			this.responseInit();
+		this.useFirefox();
 	}
 	addGloClass() { // метод, который добавляет свои классы
 		this.main.classList.add('glo-slider');
@@ -68,10 +69,10 @@ class SliderCarousel {
 		}
 	}
 	addStyle() { // метод, который добавляет свои стили к классам из метода addGlobalClass()
-		let style = document.getElementById('sliderCarusel-style');
+		let style = document.getElementById('sliderCarousel-style');
 		if (!style) {
 			style = document.createElement('style');
-			style.id = 'sliderCarusel-style';
+			style.id = 'sliderCarousel-style';
 		}
 		style.textContent = `
 			.glo-slider {
@@ -155,13 +156,24 @@ class SliderCarousel {
 				} else
 					this.options.position = 0;
 			}
-
 			this.slipSlider();
 		}
 	}
 
 	slipSlider(){ // функция, которая сдвигает слайды вправо/влево
 		this.wrap.style.transform = `translateX(-${this.options.position * this.options.widthSlide}%)`;
+	}
+
+	useFirefox() { //функция, которая определяет, используется ли браузер Firefox
+		let userAgent = navigator.userAgent.toLowerCase();
+		let Mozila = /firefox/.test(userAgent);
+
+		if (Mozila){
+			console.log('firefox');
+			let style = document.createElement('style');
+			style.textContent = `img { max-height: 100%}`;
+			document.head.appendChild(style);
+		}
 	}
 
 
