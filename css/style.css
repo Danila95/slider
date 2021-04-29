@@ -19,6 +19,10 @@
 html {
 	font-size: 10px;
 }
+.slider {
+	opacity: 0;
+}
+
 
 img {
 	max-width: 100%;
@@ -124,16 +128,16 @@ body .underline {
 	}
 }
 
-.companies {
+.slider {
 	padding: 5rem;
 }
 
-.companies .companies-hor {
+.slider .slider-hor {
 	width: 100%;
 	margin-bottom: 6.4rem;
 }
 
-.companies .companies-hor-item {
+.slider .slider-hor-item {
 	margin: 0 1.2rem;
 	padding-right: 10px;
 	display: inline-block;
@@ -141,7 +145,7 @@ body .underline {
 	overflow: hidden;
 }
 
-.companies img {
+.slider img {
 	vertical-align: middle;
 	border-bottom: solid 8px #80bf44;
 }

@@ -58,8 +58,10 @@ const winModal = function(options) {
     const modal = { // объект в котором хранятся все методы
         open() {
             // фиксит баг появления на секунду модального окна (добавляет атрибут data-close="true" в .modal-overlay)
-            const attr = document.querySelector('.modal-overlay');
-            attr.setAttribute('data-close', true);
+            if (!destroyed){ // проверяем была ли удалена прослушка на close(), чтобы потом не возникала ошибка в консоли
+                const attr = document.querySelector('.modal-overlay');
+                attr.setAttribute('data-close', true);
+            }
             // ----
             if (destroyed) {
                 return console.log('Modal is destroyed');
@@ -68,8 +70,13 @@ const winModal = function(options) {
         },
         close() {
             // фиксит баг появления на секунду модального окна (удаляет атрибут data-close="true" из .modal-overlay)
-            const attr = document.querySelector('.modal-overlay');
-            attr.removeAttribute('data-close');
+            if (!destroyed){ // проверяем была ли удалена прослушка на закрытие, чтобы потом не возникала ошибка в консоли
+                const attr = document.querySelector('.modal-overlay');
+                attr.removeAttribute('data-close');
+            }
+            if (destroyed) {
+                return console.log('Modal is destroyed');
+            }
             // ----
             closing = true;
             $modal.classList.remove('open')

@@ -1,5 +1,10 @@
 'use strict';
 
+window.onload = function(){ //фун. фиксит неправильную загрузку изображений в первую секунду слайдера
+	const slider = document.querySelector('.slider');
+	slider.style.opacity = '1';
+}
+
 // ООП ES6
 class SliderCarousel {
 	constructor({
