@@ -55,26 +55,26 @@
 - `responsive` - в данный массив предназначен для адаптивной верстке, т.е. в параметре `breakpoint` указывается ширина экрана, а в `slideToShow` указывается сколько слайдов будет отображаться в слайдере сразу.
 
 ## Параметры плагина модального окна modal.js
-`   // переменная modal, в которой описываются все параметры слайдера
-    const modal = winModal({ // создание объекта на основе функции
-    title: 'title modal window',
-    closable: true,
-    content: `
-    <p>Lorem ipsum dolor sit.</p>
-    <p>Lorem ipsum dolor sit.</p>
-    `,
-    width: '400px',
-    footerButtons: [ //массив в котором описываются параметры кнопок, которые будут находиться в footer
-        {text: 'Ok', type: 'primary', handler() {
-        console.log('Primary btn clicked');
-        modal.close();
-        }},
-        {text: 'Cancel', type: 'danger', handler() {
-            console.log('Danger btn clicked');
+    `   // переменная modal, в которой описываются все параметры слайдера
+        const modal = winModal({ // создание объекта на основе функции
+        title: 'title modal window',
+        closable: true,
+        content: '
+        <p>Lorem ipsum dolor sit.</p>
+        <p>Lorem ipsum dolor sit.</p>
+        ',
+        width: '400px',
+        footerButtons: [ //массив в котором описываются параметры кнопок, которые будут находиться в footer
+            {text: 'Ok', type: 'primary', handler() {
+            console.log('Primary btn clicked');
             modal.close();
-        }}
-    ]
-});`
+            }},
+            {text: 'Cancel', type: 'danger', handler() {
+                console.log('Danger btn clicked');
+                modal.close();
+            }}
+        ]
+    });`
 
 - `title` - параметр в котором указывается заголовок модального окна;
 - `closable` - при параметре `true`, в модальном окне появляется крестик в правом верхнем углу, при `false` исчезает;
