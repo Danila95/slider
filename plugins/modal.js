@@ -56,7 +56,7 @@ const winModal = function(options) {
     let destroyed = false;
 
     const modal = { // объект в котором хранятся все методы
-        open() {
+        open() { // Запускается из консоли modal.open()
             // фиксит баг появления на секунду модального окна (добавляет атрибут data-close="true" в .modal-overlay)
             if (!destroyed){ // проверяем была ли удалена прослушка на close(), чтобы потом не возникала ошибка в консоли
                 const attr = document.querySelector('.modal-overlay');
@@ -68,16 +68,16 @@ const winModal = function(options) {
             }
             !closing && $modal.classList.add('open');
         },
-        close() {
+        close() { // Запускается из консоли modal.close()
             // фиксит баг появления на секунду модального окна (удаляет атрибут data-close="true" из .modal-overlay)
             if (!destroyed){ // проверяем была ли удалена прослушка на закрытие, чтобы потом не возникала ошибка в консоли
                 const attr = document.querySelector('.modal-overlay');
                 attr.removeAttribute('data-close');
             }
+            // ----
             if (destroyed) {
                 return console.log('Modal is destroyed');
             }
-            // ----
             closing = true;
             $modal.classList.remove('open')
             $modal.classList.add('hide');
@@ -96,12 +96,13 @@ const winModal = function(options) {
     $modal.addEventListener('click', listener); //прослушка для кнопки "крестик", которая вызывает метод close()
     // метод Object.assign() расширяет объект modal новым методом destroy(). Это сделано для того, чтобы этот метод был public
     return Object.assign(modal, {
-        destroy() {
+        destroy() { // Запускается из консоли modal.destroy()
             $modal.parentNode.removeChild($modal)
             $modal.removeEventListener('click', listener);
             destroyed = true;
         },
-        setContent(html) { // публичный метод, который позволяет добавляет content в виде html тегов
+        // публичный метод, который позволяет добавляет content в виде html тегов. Запускается из консоли modal.setContent()
+        setContent(html) {
             $modal.querySelector('[data-content]').innerHTML = html;
         }
     })

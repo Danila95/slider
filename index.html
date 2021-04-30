@@ -108,7 +108,7 @@
 		});
 
 		// переменная modal, в которой описываются все параметры слайдера
-		const modal = winModal({
+		const modal = winModal({ // создание объекта на основе функции
 			title: 'title modal window',
 			closable: true,
 			content: `
@@ -120,13 +120,13 @@
 				{text: 'Ok', type: 'primary', handler() {
 						console.log('Primary btn clicked');
 						modal.close();
-					}},
+				}},
 				{text: 'Cancel', type: 'danger', handler() {
 						console.log('Danger btn clicked');
 						modal.close();
-					}}
+				}}
 			]
-		})
+		});
 		// запуск слайдера
 		carousel.init(); //вызов метода init из класса SliderCarousel()
 	</script>
