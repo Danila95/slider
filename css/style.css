@@ -156,4 +156,6 @@ body .underline {
 
 .title-img_visible {
 	display: block;
+	color: #949191;
+	background: #fff0f0;
 }

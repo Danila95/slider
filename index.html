@@ -112,23 +112,23 @@
 
 		// переменная modal, в которой описываются все параметры слайдера
 		const modal = new winModal({ // создание объекта на основе функции
-			title: 'title modal window',
-			closable: true,
+			// title: 'title modal window',
+			closable: false,
 			content: `
 			<p>Lorem ipsum dolor sit.</p>
 			<p>Lorem ipsum dolor sit.</p>
 			`,
 			width: '400px',
-			footerButtons: [ //массив в котором описываются параметры кнопок, которые будут находиться в footer
-				{text: 'Ok', type: 'primary', handler() {
-						console.log('Primary btn clicked');
-						modal.close();
-				}},
-				{text: 'Cancel', type: 'danger', handler() {
-						console.log('Danger btn clicked');
-						modal.close();
-				}}
-			]
+			// footerButtons: [ //массив в котором описываются параметры кнопок, которые будут находиться в footer
+			// 	{text: 'Ok', type: 'primary', handler() {
+			// 			console.log('Primary btn clicked');
+			// 			modal.close();
+			// 	}},
+			// 	{text: 'Cancel', type: 'danger', handler() {
+			// 			console.log('Danger btn clicked');
+			// 			modal.close();
+			// 	}}
+			// ]
 		});
 		// запуск слайдера
 		carousel.init(); //вызов метода init из класса SliderCarousel()

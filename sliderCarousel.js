@@ -189,7 +189,6 @@ class SliderCarousel {
         let Mozila = /firefox/.test(userAgent);
 
         if (Mozila) {
-            console.log('firefox');
             let style = document.createElement('style');
             style.textContent = `img { max-height: 100%}`;
             document.head.appendChild(style);

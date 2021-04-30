@@ -65,6 +65,13 @@
 
 .modal-close {
     cursor: pointer;
+    background: url(../img/cross.png) no-repeat center / contain;
+    width: 15px;
+    height: 15px;
+}
+
+.modal-close:hover {
+    opacity: 0.5;
 }
 
 .modal-body {

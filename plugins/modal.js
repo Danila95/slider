@@ -31,12 +31,13 @@ function _createModal(options) {
     modal.insertAdjacentHTML('afterbegin', `
         <div class="modal-overlay" data-close="">
             <div class="modal-window" style="width: ${options.width || DEFAULT_WIDTH}">
-                <div class="modal-header">
+                <!--если нет двух параметров title и closable убираем div.modal-header-->
+                ${!options.title && !options.closable ? '' : '<div class="modal-header">'}
                     <span class="modal-title">
                         ${options.title || ''}
                     </span>
-                    ${options.closable ? `<span class="modal-close" data-close="true">&times;</span>` : ''}
-                </div>
+                    ${options.closable ? `<span class="modal-close" data-close="true"></span>` : ''}
+                ${!options.title && !options.closable ? '' : '</div>'}
                 <div class="modal-body" data-content>
                     ${options.content || ''}
                 </div>
@@ -106,4 +107,17 @@ const winModal = function(options) {
             $modal.querySelector('[data-content]').innerHTML = html;
         }
     })
+
+
+
 }
+//код для стилизации плагина modal.js к слайдеру sliderCarousel.js
+const sliderHorItem = document.querySelector('.slider-images');
+
+sliderHorItem.addEventListener('click', (e)=> {
+    const target = e.target; // где именно был клик
+    const html = target;
+    console.log(html);
+    modal.setContent(html);
+    modal.open();
+});
