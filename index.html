@@ -88,7 +88,8 @@
 			// стрелочки-кнопочки, которые пользователь сам создает
 			// prev: '#test-left',
 			// next: '#test-right',
-			slidesToShow: 4,
+			slidesToShow: 1,
+			height: 1000, // высота контейнера в котором находится картинка (картин. подстраивается под высоту контейнера)
 			infinity: true,
 			cycle: false, // без "infinity: true" работать не будет
 			autoplay: false,
@@ -108,7 +109,7 @@
 		});
 
 		// переменная modal, в которой описываются все параметры слайдера
-		const modal = winModal({ // создание объекта на основе функции
+		const modal = new winModal({ // создание объекта на основе функции
 			title: 'title modal window',
 			closable: true,
 			content: `
