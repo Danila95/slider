@@ -20,6 +20,7 @@ class SliderCarousel {
                     position = 0,
                     slidesToShow = 3,
                     height = 200,
+                    titleImg = false,
                     responsive = []
                 }) { // конструктор задает свойства для нового создаваемого объекта из этого класса (зададим свойства, которые будет получать объект)
         if (!main || !wrap) { // проверяем на наличие необходимых элементов
@@ -42,6 +43,7 @@ class SliderCarousel {
             cycle,
             autoplay,
             timeToChangeSlide,
+            titleImg,
             widthSlide: Math.floor(100 / this.slidesToShow), // свойство, которое вычисляет ширину слайда
             maxPosition: this.slides.length - this.slidesToShow
         };
@@ -54,6 +56,10 @@ class SliderCarousel {
 
         if (this.options.autoplay)
             this.autoPlay();
+
+        if (this.options.titleImg) { // условие по которому вставляются подписи к картинкам
+            this.titleImg();
+        }
 
         if (this.options.position !== 0) //вычисляем позицию нахождения слайдера при первом запуске слайдера
             this.slipSlider();
@@ -98,7 +104,8 @@ class SliderCarousel {
 			.glo-slider__item {
 				display: flex !important;
 				align-items: center;
-				justify-content: center;
+				justify-content: space-evenly;
+				flex-direction: column;
 				flex: 0 0 ${this.options.widthSlide}% !important;
 				margin: auto !important;
 			}
@@ -187,6 +194,12 @@ class SliderCarousel {
             style.textContent = `img { max-height: 100%}`;
             document.head.appendChild(style);
         }
+    }
+
+    titleImg() {
+        const div = document.querySelectorAll('.title-img');
+        for (let i = 0; i < div.length; i++)
+            div[i].classList.add('title-img_visible')
     }
 
 

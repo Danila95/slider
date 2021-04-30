@@ -142,10 +142,18 @@ body .underline {
 	padding-right: 10px;
 	display: inline-block;
 	/*height: 200px;*/
-	overflow: hidden;
+	/*overflow: hidden;*/
 }
 
 .slider img {
 	vertical-align: middle;
 	border-bottom: solid 8px #80bf44;
+}
+
+.title-img {
+	display: none;
+}
+
+.title-img_visible {
+	display: block;
 }
