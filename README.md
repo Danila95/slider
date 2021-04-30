@@ -25,8 +25,8 @@
 			// prev: '#test-left',
 			// next: '#test-right',
 			slidesToShow: 4,
-            height: 1000, // высота контейнера в котором находится картинка (картин. подстраивается под высоту контейнера),
-            titleImg: false,
+                    height: 1000, // высота контейнера в котором находится картинка (картин. подстраивается под высоту контейнера),
+                    titleImg: false,
 			infinity: true,
 			cycle: false, // без "infinity: true" работать не будет
 			autoplay: false,
