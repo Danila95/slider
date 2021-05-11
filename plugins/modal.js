@@ -102,6 +102,17 @@ const winModal = function(options) {
             $modal.removeEventListener('click', listener);
             destroyed = true;
         },
+        resizeHeightImg(target, html) { // функция уменьшает изображения по высоте,у которых высота больше 1000px
+            const naturalHeight = target.naturalHeight;
+            if (naturalHeight >= 1000) {
+                console.log(html);
+                html = html.replace(/>/, ' ');
+                html += 'style="height: 750px;">';
+                console.log(html);
+                return html;
+            }
+            return html;
+        },
         // публичный метод, который позволяет добавляет content в виде html тегов. Запускается из консоли modal.setContent()
         setContent(html) {
             $modal.querySelector('[data-content]').innerHTML = html;
@@ -116,8 +127,9 @@ const sliderHorItem = document.querySelector('.slider-images');
 
 sliderHorItem.addEventListener('click', (e)=> {
     const target = e.target; // где именно был клик
-    const html = target;
-    console.log(html);
+    console.log(e);
+    let html = target.outerHTML; // получаем тег
+    html = modal.resizeHeightImg(target, html);
     modal.setContent(html);
     modal.open();
 });
