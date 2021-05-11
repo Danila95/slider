@@ -141,6 +141,7 @@ body .underline {
 	margin: 0 1.2rem;
 	padding-right: 10px;
 	display: inline-block;
+	cursor: pointer;
 	/*height: 200px;*/
 	/*overflow: hidden;*/
 }

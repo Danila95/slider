@@ -105,31 +105,46 @@ const winModal = function(options) {
         resizeHeightImg(target, html) { // функция уменьшает изображения по высоте,у которых высота больше 1000px
             const naturalHeight = target.naturalHeight;
             if (naturalHeight >= 1000) {
-                console.log(html);
                 html = html.replace(/>/, ' ');
-                html += 'style="height: 750px;">';
-                console.log(html);
+                html += `style="height: ${options.heightBigImg};">`;
+                // console.log(html);
                 return html;
             }
             return html;
+        },
+        isTitleImg(html,span){ // функция объединяет теги картинки и надписи для отображения в модальном окне
+            if (options.titleImg) {
+                html += span; // объединяем теги картинки и надписи
+                return html
+            }
+            return html
         },
         // публичный метод, который позволяет добавляет content в виде html тегов. Запускается из консоли modal.setContent()
         setContent(html) {
             $modal.querySelector('[data-content]').innerHTML = html;
         }
     })
-
-
-
 }
 //код для стилизации плагина modal.js к слайдеру sliderCarousel.js
 const sliderHorItem = document.querySelector('.slider-images');
 
-sliderHorItem.addEventListener('click', (e)=> {
+sliderHorItem.addEventListener('click', (e) => {
     const target = e.target; // где именно был клик
-    console.log(e);
-    let html = target.outerHTML; // получаем тег
-    html = modal.resizeHeightImg(target, html);
+    if ((target.className === 'pic')) { // если нажали на картинку
+        const span = target.nextSibling.outerHTML; // получаем тег надписи
+        html = target.outerHTML; // получаем тег картинки
+        html = modal.resizeHeightImg(target, html); // обрабатываем картинку
+        html = modal.isTitleImg(html,span);
+    }
+    if ((target.className === 'slider-hor-item glo-slider__item')) { // если нажали на контейнер слайда,
+        const target = e.target.children[0];
+        const span = target.nextSibling.outerHTML;
+        html = target.outerHTML;
+        console.log(html);
+        html = modal.resizeHeightImg(target, html);
+        html = modal.isTitleImg(html,span);
+    }
     modal.setContent(html);
     modal.open();
+
 });
