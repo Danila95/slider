@@ -94,6 +94,12 @@ const winModal = function(options) {
             modal.close();
         }
     }
+
+    window.onkeydown = function(event) { // при нажатии на клавишу Escape закрывает модальное окно
+        if (event.key === 'Escape') {
+            modal.close();
+        }
+    }
     $modal.addEventListener('click', listener); //прослушка для кнопки "крестик", которая вызывает метод close()
     // метод Object.assign() расширяет объект modal новым методом destroy(). Это сделано для того, чтобы этот метод был public
     return Object.assign(modal, {

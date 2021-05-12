@@ -11,6 +11,7 @@ class SliderCarousel {
                     main,
                     wrap,
                     btns,
+                    sideButtons = false,
                     next,
                     prev,
                     infinity = false,
@@ -44,6 +45,7 @@ class SliderCarousel {
             autoplay,
             timeToChangeSlide,
             titleImg,
+            sideButtons,
             widthSlide: Math.floor(100 / this.slidesToShow), // свойство, которое вычисляет ширину слайда
             maxPosition: this.slides.length - this.slidesToShow
         };
@@ -203,15 +205,66 @@ class SliderCarousel {
 
 
     addArrow() { // метод, который добавляет свои стрелочки по дефолту
-        this.prev = document.createElement('button');
-        this.next = document.createElement('button');
-        this.prev.className = 'glo-slider__prev';
-        this.next.className = 'glo-slider__next';
-        this.btns.appendChild(this.prev);
-        this.btns.appendChild(this.next);
+        if (this.options.sideButtons) {
+            this.prev = document.createElement('button');
+            this.next = document.createElement('button');
+            this.prev.className = 'glo-slider__prev';
+            this.next.className = 'glo-slider__next';
+            this.btns.appendChild(this.prev);
+            this.btns.appendChild(this.next);
 
-        const style = document.createElement('style');
-        style.textContent = `
+            const style = document.createElement('style');
+            style.textContent = `
+            .btns {
+                position: absolute;
+            }
+			.glo-slider__prev,
+			.glo-slider__next {
+				margin: 50px 10px 0 10px;
+				border: 20px solid transparent;
+				background: transparent;
+			}
+			.glo-slider__next {
+				border-left-color: #80bf44;
+				position: relative;
+				bottom: 175px;
+				left: 1050px;
+			}
+			.glo-slider__prev {
+				border-right-color: #80bf44;
+				position: relative;
+				bottom: 175px;
+				right: 100px;
+			}
+			.glo-slider__prev:hover,
+			.glo-slider__next:hover,
+			.glo-slider__prev:focus,
+			.glo-slider__next:focus {
+				background: transparent;
+				outline: transparent;
+			}
+			.glo-slider__prev:hover,
+			.glo-slider__prev:focus{
+				border-right-color: #70ac36;
+			}
+			.glo-slider__next:hover,
+			.glo-slider__next:focus{
+				border-left-color: #70ac36;
+			}
+		`;
+
+            document.head.appendChild(style);
+
+        } else {
+            this.prev = document.createElement('button');
+            this.next = document.createElement('button');
+            this.prev.className = 'glo-slider__prev';
+            this.next.className = 'glo-slider__next';
+            this.btns.appendChild(this.prev);
+            this.btns.appendChild(this.next);
+
+            const style = document.createElement('style');
+            style.textContent = `
 			.glo-slider__prev,
 			.glo-slider__next {
 				margin: 50px 10px 0 10px;
@@ -241,7 +294,8 @@ class SliderCarousel {
 			}
 		`;
 
-        document.head.appendChild(style);
+            document.head.appendChild(style);
+        }
     }
 
     responseInit() { // функ. которая проверяет ширину браузера на данный момент
