@@ -119,7 +119,7 @@ const winModal = function(options) {
             return html;
         },
         isTitleImg(html,span){ // функция объединяет теги картинки и надписи для отображения в модальном окне
-            if (options.titleImg) {
+            if (options.titlePic) {
                 html += span; // объединяем теги картинки и надписи
                 return html
             }
