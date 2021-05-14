@@ -12,6 +12,7 @@ class SliderCarousel {
                     wrap,
                     btns,
                     sideButtons = false,
+                    hotKeys = false,
                     next,
                     prev,
                     infinity = false,
@@ -46,6 +47,7 @@ class SliderCarousel {
             timeToChangeSlide,
             titleImg,
             sideButtons,
+            hotKeys,
             widthSlide: Math.floor(100 / this.slidesToShow), // свойство, которое вычисляет ширину слайда
             maxPosition: this.slides.length - this.slidesToShow
         };
@@ -129,7 +131,10 @@ class SliderCarousel {
             if (event.key === 'ArrowRight')
                 this.nextSlider();
         }
-        document.addEventListener('keydown', keyArrows);
+        if (this.options.hotKeys)
+            document.addEventListener('keydown', keyArrows);
+        else
+            document.removeEventListener('keydown', keyArrows);
         this.next.addEventListener('click', this.nextSlider.bind(this));
     }
 
