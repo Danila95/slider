@@ -108,22 +108,32 @@ const winModal = function(options) {
             $modal.removeEventListener('click', listener);
             destroyed = true;
         },
-        resizeHeightImg(target, html) { // функция уменьшает изображения по высоте,у которых высота больше 1000px
+        resizeHeightImg(target) { // функция уменьшает изображения по высоте,у которых высота больше 1000px
             const naturalHeight = target.naturalHeight;
+            let htmlTeg = target.outerHTML; // получаем тег картинки
             if (naturalHeight >= 1000) {
-                html = html.replace(/>/, ' ');
-                html += `style="height: ${options.heightBigImg};">`;
-                // console.log(html);
-                return html;
+                htmlTeg = htmlTeg.replace(/>/, ' ');
+                htmlTeg += `style="height: ${options.heightBigImg};">`;
+                return htmlTeg;
             }
-            return html;
+            return htmlTeg;
         },
-        isTitleImg(html,span){ // функция объединяет теги картинки и надписи для отображения в модальном окне
+        isTitlePic(target,html){ // функция объединяет теги картинки и надписи для отображения в модальном окне
+            let htmlTeg = html; // получаем тег картинки
             if (options.titlePic) {
-                html += span; // объединяем теги картинки и надписи
-                return html
+                let span = target.nextSibling;
+                // span.classList.add('title-pic_visible'); // проблема! Добавляет класс .title-pic_visible
+                // в оригинал и копию тег пришлось тег превратить в строку и добавить класс, как строку
+                let spanTeg = span.outerHTML // получаем тег надписи
+                let lastIndexOfSlash = spanTeg.lastIndexOf("\"");
+                let spanTegPart1 = spanTeg.slice(0,lastIndexOfSlash);
+                let spanTegPart2 = spanTeg.slice(lastIndexOfSlash);
+                spanTegPart1 += ' title-pic_visible';
+                spanTeg = spanTegPart1 + spanTegPart2;
+                htmlTeg += spanTeg; // объединяем теги картинки и надписи
+                return htmlTeg
             }
-            return html
+            return htmlTeg
         },
         // публичный метод, который позволяет добавляет content в виде html тегов. Запускается из консоли modal.setContent()
         setContent(html) {
@@ -136,19 +146,17 @@ const sliderHorItem = document.querySelector('.slider-images');
 
 sliderHorItem.addEventListener('click', (e) => {
     const target = e.target; // где именно был клик
-    if ((target.className === 'pic')) { // если нажали на картинку
-        const span = target.nextSibling.outerHTML; // получаем тег надписи
-        html = target.outerHTML; // получаем тег картинки
-        html = modal.resizeHeightImg(target, html); // обрабатываем картинку
-        html = modal.isTitleImg(html,span);
+    let html = '';
+    if ((target.className === 'title-img title-img_visible') || (target.className === 'title-img title-pic_visible') ||
+        (target.className === 'title-img title-img_visible title-pic_visible')) { // если нажали на подпись к картинке
+        const target = e.target.previousSibling;
+        html = modal.resizeHeightImg(target); // обрабатываем картинку
+        html = modal.isTitlePic(target,html);
     }
     if ((target.className === 'slider-hor-item glo-slider__item')) { // если нажали на контейнер слайда,
         const target = e.target.children[0];
-        const span = target.nextSibling.outerHTML;
-        html = target.outerHTML;
-        console.log(html);
-        html = modal.resizeHeightImg(target, html);
-        html = modal.isTitleImg(html,span);
+        html = modal.resizeHeightImg(target);
+        html = modal.isTitlePic(target,html);
     }
     modal.setContent(html);
     modal.open();

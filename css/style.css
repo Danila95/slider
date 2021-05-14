@@ -30,6 +30,16 @@ img {
 	max-height: fill-available;
 	max-height: -webkit-fill-available;
 }
+.slider-images img {
+	pointer-events: none; /*изображения не будут перетаскиваться мышью*/
+}
+.slider-images.grab {
+	cursor: grab;
+}
+
+.slider-images.grabbing{
+	cursor: grabbing;
+}
 
 body {
 	font-family: 'Roboto', sans-serif;
@@ -55,6 +65,13 @@ body .underline {
 	border-bottom: 1px solid #80bf44;
 	width: 38rem;
 	margin-bottom: 3rem;
+}
+
+.slider-wrapper {
+	/* Чтобы во время перетаскивания слайда ничего не выделить внутри него */
+	user-select: none;
+	/* Чтобы запретить скролл страницы, если мы начали двигать слайдер по оси X */
+	touch-action: pan-y;
 }
 
 .slider {
@@ -85,6 +102,11 @@ body .underline {
 }
 
 .title-img_visible {
+	display: block;
+	color: #949191;
+	background: #fff0f0;
+}
+.title-pic_visible {
 	display: block;
 	color: #949191;
 	background: #fff0f0;

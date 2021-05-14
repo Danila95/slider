@@ -71,11 +71,16 @@ class SliderCarousel {
         else {
             this.addArrow();
             this.controlSlider();
+            // this.swipeSlider();
         }
         if (this.responsive)
             this.responseInit();
         this.useFirefox();
     }
+
+    // swipeSlider() {
+
+    // };
 
     addGloClass() { // метод, который добавляет свои классы
         this.main.classList.add('glo-slider');
