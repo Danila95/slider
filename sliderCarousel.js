@@ -120,8 +120,16 @@ class SliderCarousel {
         document.head.appendChild(style);
     }
 
-    controlSlider() { // метод выполняется, если пользователь передал свои кнопки
+    controlSlider() { // ставим прослушку для навигационных кнопок слайдера
         this.prev.addEventListener('click', this.prevSlider.bind(this));
+        // функция и прослушка для клавиш вправо и влево
+        const keyArrows = (event) => {
+            if (event.key === 'ArrowLeft')
+                this.prevSlider();
+            if (event.key === 'ArrowRight')
+                this.nextSlider();
+        }
+        document.addEventListener('keydown', keyArrows);
         this.next.addEventListener('click', this.nextSlider.bind(this));
     }
 
