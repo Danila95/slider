@@ -152,12 +152,12 @@ sliderHorItem.addEventListener('click', (e) => {
         const target = e.target.previousSibling;
         html = modal.resizeHeightImg(target); // обрабатываем картинку
         html = modal.isTitlePic(target,html);
-    }
-    if ((target.className === 'slider-hor-item glo-slider__item')) { // если нажали на контейнер слайда,
+    } else if ((target.className === 'slider-hor-item glo-slider__item')) { // если нажали на контейнер слайда,
         const target = e.target.children[0];
         html = modal.resizeHeightImg(target);
         html = modal.isTitlePic(target,html);
-    }
+    } else
+        return -1;
     modal.setContent(html);
     modal.open();
 
