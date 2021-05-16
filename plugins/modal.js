@@ -20,7 +20,7 @@ function _createModalFooter(buttons = []) {
         $btn.onclick = btn.handler || noop;
 
         wrap.appendChild($btn);
-    })
+    });
     return wrap
 }
 
@@ -45,7 +45,7 @@ function _createModal(options) {
         </div>
     `)
     const footer =_createModalFooter(options.footerButtons);
-    footer.appendAfter(modal.querySelector('[data-content]'))
+    footer.appendAfter(modal.querySelector('[data-content]'));
     document.body.appendChild(modal);
     return modal
 }
@@ -80,31 +80,31 @@ const winModal = function(options) {
                 return console.log('Modal is destroyed');
             }
             closing = true;
-            $modal.classList.remove('open')
+            $modal.classList.remove('open');
             $modal.classList.add('hide');
             setTimeout(() => {
                 $modal.classList.remove('hide');
                 closing = false;
             }, ANIMATION_SPEED);
         },
-    }
+    };
 
     const listener = e => {
         if (e.target.dataset.close){
             modal.close();
         }
-    }
+    };
 
     window.onkeydown = function(event) { // при нажатии на клавишу Escape закрывает модальное окно
         if (event.key === 'Escape') {
             modal.close();
         }
-    }
+    };
     $modal.addEventListener('click', listener); //прослушка для кнопки "крестик", которая вызывает метод close()
     // метод Object.assign() расширяет объект modal новым методом destroy(). Это сделано для того, чтобы этот метод был public
     return Object.assign(modal, {
         destroy() { // Запускается из консоли modal.destroy()
-            $modal.parentNode.removeChild($modal)
+            $modal.parentNode.removeChild($modal);
             $modal.removeEventListener('click', listener);
             destroyed = true;
         },
@@ -124,7 +124,7 @@ const winModal = function(options) {
                 let span = target.nextSibling;
                 // span.classList.add('title-pic_visible'); // проблема! Добавляет класс .title-pic_visible
                 // в оригинал и копию тег пришлось тег превратить в строку и добавить класс, как строку
-                let spanTeg = span.outerHTML // получаем тег надписи
+                let spanTeg = span.outerHTML; // получаем тег надписи
                 let lastIndexOfSlash = spanTeg.lastIndexOf("\"");
                 let spanTegPart1 = spanTeg.slice(0,lastIndexOfSlash);
                 let spanTegPart2 = spanTeg.slice(lastIndexOfSlash);
@@ -140,7 +140,7 @@ const winModal = function(options) {
             $modal.querySelector('[data-content]').innerHTML = html;
         }
     })
-}
+};
 //код для стилизации плагина modal.js к слайдеру sliderCarousel.js
 const sliderHorItem = document.querySelector('.slider-images');
 

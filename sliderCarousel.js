@@ -3,7 +3,7 @@
 window.onload = function () { //фун. фиксит неправильную загрузку изображений в первую секунду слайдера
     const slider = document.querySelector('.slider');
     slider.style.opacity = '1';
-}
+};
 
 // ООП ES6
 class SliderCarousel {
@@ -20,6 +20,8 @@ class SliderCarousel {
                     autoplay = false,
                     timeToChangeSlide = 5,
                     position = 0,
+                    indicators,
+                    dots = false,
                     slidesToShow = 3,
                     height = 200,
                     titleImg = false,
@@ -37,8 +39,9 @@ class SliderCarousel {
         this.slides = document.querySelector(wrap).children;
         this.next = document.querySelector(next);
         this.prev = document.querySelector(prev);
+        this.indicators = document.querySelector(indicators);
         this.slidesToShow = slidesToShow; // сколько нужно отображать слайдов
-		this.height = height // высота изображения в px
+		this.height = height; // высота изображения в px
         this.options = {
             position, // свойство, которое отслеживает положение слайдера
             infinity,
@@ -48,6 +51,7 @@ class SliderCarousel {
             titleImg,
             sideButtons,
             hotKeys,
+            dots,
             widthSlide: Math.floor(100 / this.slidesToShow), // свойство, которое вычисляет ширину слайда
             maxPosition: this.slides.length - this.slidesToShow
         };
@@ -75,6 +79,8 @@ class SliderCarousel {
             this.controlSlider();
             // this.swipeSlider();
         }
+        if (this.options.dots)
+            this.addIndicators();
         if (this.responsive)
             this.responseInit();
         this.useFirefox();
@@ -124,18 +130,50 @@ class SliderCarousel {
 
     controlSlider() { // ставим прослушку для навигационных кнопок слайдера
         this.prev.addEventListener('click', this.prevSlider.bind(this));
+        this.next.addEventListener('click', this.nextSlider.bind(this));
+        // функция и прослушка для кнопок dots
+        const listenerIndicators = (e) => { // функция отвечает за работу и отображение dots
+            if (e.target.className !== 'slider__indicators'){ // условие исключает баг со случайным нажатием на род. элем.
+                // записываем в глоб. перемен. позицию слайдера, если нажали на dots
+                this.options.position = Number(e.target.dataset.slideTo);
+                this.slipSlider();
+                for (let i = 0; this.slides.length > i; i++) { //  меняем классы в индикаторах dots
+                    if (this.indicators.children[i].className === 'active') {
+                        this.indicators.children[i].classList.remove('active');
+                        e.target.classList.add('active');
+                    }
+                }
+            }
+        };
+        if (this.options.dots)
+            this.indicators.addEventListener('click', listenerIndicators);
+        else
+            this.indicators.removeEventListener('click', listenerIndicators);
         // функция и прослушка для клавиш вправо и влево
         const keyArrows = (event) => {
             if (event.key === 'ArrowLeft')
                 this.prevSlider();
             if (event.key === 'ArrowRight')
                 this.nextSlider();
-        }
+        };
         if (this.options.hotKeys)
             document.addEventListener('keydown', keyArrows);
         else
             document.removeEventListener('keydown', keyArrows);
-        this.next.addEventListener('click', this.nextSlider.bind(this));
+    }
+
+    addIndicators(){ // функция создает навигационную панель с dots
+        const SLIDES_LENGTH = this.slides.length; // кол-во слайдов
+        const INDICATORS = this.indicators; // родительский элемент индикаторов dots
+        for (let i = 0; i < SLIDES_LENGTH; i++) { // циклом создаем индикаторы (dots = кол-во слайдов)
+            let wrap = this.wrap.children[i].firstElementChild; // получаем все теги картинок
+            let elem = INDICATORS.appendChild(document.createElement('li'));
+            // в каждый тег картинки добавляем атрибут data-slide-to со своим уник. значением
+            wrap.setAttribute('data-slide-to', i);
+            // в каждый тег индикатора добавляем атрибут data-slide-to со своим уник. значением
+            elem.dataset.slideTo = i;
+        }
+        INDICATORS.firstElementChild.classList.add('active');
     }
 
     autoPlay() { //функция, которая автоматически перелистывает слайды, через заданный промежуток времени
@@ -177,6 +215,12 @@ class SliderCarousel {
                     this.options.position = this.options.maxPosition;
             }
             this.slipSlider();
+            for (let i = 0; this.slides.length > i; i++) { //  меняем классы в индикаторах dots
+                if (this.indicators.children[i].className === 'active') {
+                    this.indicators.children[i].classList.remove('active');
+                    this.indicators.children[this.options.position].classList.add('active');
+                }
+            }
         }
     }
 
@@ -197,6 +241,12 @@ class SliderCarousel {
                     this.options.position = 0;
             }
             this.slipSlider();
+            for (let i = 0; this.slides.length > i; i++) { //  меняем классы в индикаторах dots
+                if (this.indicators.children[i].className === 'active') {
+                    this.indicators.children[i].classList.remove('active');
+                    this.indicators.children[this.options.position].classList.add('active');
+                }
+            }
         }
     }
 
@@ -327,7 +377,7 @@ class SliderCarousel {
                 // для принятия нового размера
                 this.options.widthSlide = Math.floor(100 / this.slidesToShow);
                 this.addStyle();
-            }
+            };
             if (widthWindow < maxResponse) {
                 for (let i = 0; i < allRespone.length; i++) {
                     if (widthWindow < allRespone[i]) {
