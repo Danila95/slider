@@ -177,26 +177,7 @@ class SliderCarousel {
     }
 
     autoPlay() { //функция, которая автоматически перелистывает слайды, через заданный промежуток времени
-        setInterval(() => {
-            if (this.options.infinity || this.options.position < this.options.maxPosition) {
-                ++this.options.position;
-                console.log(this.options.position);
-
-                // здесь нужно как-то организовать правильное перемещение dom-elements
-                if (this.options.position > this.options.maxPosition) {
-                    //если cycle:true - включаем бесконечное прокручивание
-                    if (this.options.cycle) {
-                        // console.log('max = '+ this.options.maxPosition); // отладка
-                        let firstChild = this.wrap.firstElementChild;
-                        console.log(firstChild);
-                        this.wrap.appendChild(firstChild);
-                    } else
-                        this.options.position = 0;
-                }
-
-                this.slipSlider();
-            }
-        }, this.options.timeToChangeSlide * 1000);
+        setInterval(() => this.nextSlider(), this.options.timeToChangeSlide * 1000);
     }
 
     prevSlider() {
