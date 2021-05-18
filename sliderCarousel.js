@@ -136,11 +136,36 @@ class SliderCarousel {
             if (e.target.className !== 'slider__indicators'){ // условие исключает баг со случайным нажатием на род. элем.
                 // записываем в глоб. перемен. позицию слайдера, если нажали на dots
                 this.options.position = Number(e.target.dataset.slideTo);
-                this.slipSlider();
+                // условие, которое включает отображение нескольких индикаторов, если  slidesToShow > 1
+                if (this.options.position !== this.options.maxPosition)
+                    this.slipSlider();
                 for (let i = 0; this.slides.length > i; i++) { //  меняем классы в индикаторах dots
                     if (this.indicators.children[i].className === 'active') {
                         this.indicators.children[i].classList.remove('active');
-                        e.target.classList.add('active');
+                        // условия если у нас отображаются больше чем один слайд
+                        if (this.slidesToShow === 1)
+                            e.target.classList.add('active');
+                        else if (this.slidesToShow === 2){
+                            e.target.classList.add('active');
+                            e.target.nextSibling.classList.add('active');
+                        } else if (this.slidesToShow === 3){
+                            e.target.classList.add('active');
+                            e.target.nextSibling.classList.add('active');
+                            e.target.nextSibling.nextSibling.classList.add('active');
+                        } else if (this.slidesToShow === 4){
+                            e.target.classList.add('active');
+                            e.target.nextSibling.classList.add('active');
+                            e.target.nextSibling.nextSibling.classList.add('active');
+                            e.target.nextSibling.nextSibling.nextSibling.classList.add('active');
+                        }
+                        // for (let i = 0; i <= this.slidesToShow - 1; i++){
+                        //     e.target.children[i].classList.add('active');
+                        // }
+                        // for (let i = this.options.position; i <= this.slidesToShow - 1; i++){
+                        //     console.log(this.options.maxPosition);
+                        //     console.log(this.options.position);
+                        //     this.indicators.children[i].classList.add('active');
+                        // }
                     }
                 }
             }
@@ -165,6 +190,7 @@ class SliderCarousel {
     addIndicators(){ // функция создает навигационную панель с dots
         const SLIDES_LENGTH = this.slides.length; // кол-во слайдов
         const INDICATORS = this.indicators; // родительский элемент индикаторов dots
+        const SLIDES_TO_SHOW = this.slidesToShow;
         for (let i = 0; i < SLIDES_LENGTH; i++) { // циклом создаем индикаторы (dots = кол-во слайдов)
             let wrap = this.wrap.children[i].firstElementChild; // получаем все теги картинок
             let elem = INDICATORS.appendChild(document.createElement('li'));
@@ -173,7 +199,9 @@ class SliderCarousel {
             // в каждый тег индикатора добавляем атрибут data-slide-to со своим уник. значением
             elem.dataset.slideTo = i;
         }
-        INDICATORS.firstElementChild.classList.add('active');
+        for (let i = this.options.position; i <= SLIDES_TO_SHOW - 1; i++){
+                INDICATORS.children[i].classList.add('active');
+        }
     }
 
     autoPlay() { //функция, которая автоматически перелистывает слайды, через заданный промежуток времени
@@ -184,7 +212,7 @@ class SliderCarousel {
         if (this.options.infinity || this.options.position > 0) {
             --this.options.position;
             console.log(this.options.position);
-            if (this.options.position < 0) {
+            if (this.options.position <= 0) {
                 //если cycle:true - включаем бесконечное прокручивание
                 if (this.options.cycle) {
                     let firstChild = this.wrap.firstElementChild;
@@ -201,6 +229,26 @@ class SliderCarousel {
                     this.indicators.children[i].classList.remove('active');
                     this.indicators.children[this.options.position].classList.add('active');
                 }
+                // if (this.indicators.children[i].className === 'active') {
+                //     this.indicators.children[i].classList.remove('active');
+                //     // условия если у нас отображаются больше чем один слайд
+                //     if (this.slidesToShow === 1)
+                //         this.indicators.children[this.options.position].classList.add('active');
+                //     else if (this.slidesToShow === 2){
+                //         console.log(this.options.position);
+                //         this.indicators.children[this.options.position].classList.add('active');
+                //         this.indicators.children[this.options.position].previousSibling.classList.add('active');
+                //     } else if (this.slidesToShow === 3){
+                //         this.indicators.children[this.options.position].classList.add('active');
+                //         this.indicators.children[this.options.position].previousSibling.classList.add('active');
+                //         this.indicators.children[this.options.position].previousSibling.previousSibling.classList.add('active');
+                //     } else if (this.slidesToShow === 4){
+                //         this.indicators.children[this.options.position].classList.add('active');
+                //         this.indicators.children[this.options.position].previousSibling.classList.add('active');
+                //         this.indicators.children[this.options.position].previousSibling.previousSibling.classList.add('active');
+                //         this.indicators.children[this.options.position].previousSibling.previousSibling.previousSibling.classList.add('active');
+                //     }
+                // }
             }
         }
     }
@@ -225,7 +273,22 @@ class SliderCarousel {
             for (let i = 0; this.slides.length > i; i++) { //  меняем классы в индикаторах dots
                 if (this.indicators.children[i].className === 'active') {
                     this.indicators.children[i].classList.remove('active');
-                    this.indicators.children[this.options.position].classList.add('active');
+                    // условия если у нас отображаются больше чем один слайд
+                    if (this.slidesToShow === 1)
+                        this.indicators.children[this.options.position].classList.add('active');
+                    else if (this.slidesToShow === 2){
+                        this.indicators.children[this.options.position].classList.add('active');
+                        this.indicators.children[this.options.position].nextSibling.classList.add('active');
+                    } else if (this.slidesToShow === 3){
+                        this.indicators.children[this.options.position].classList.add('active');
+                        this.indicators.children[this.options.position].nextSibling.classList.add('active');
+                        this.indicators.children[this.options.position].nextSibling.nextSibling.classList.add('active');
+                    } else if (this.slidesToShow === 4){
+                        this.indicators.children[this.options.position].classList.add('active');
+                        this.indicators.children[this.options.position].nextSibling.classList.add('active');
+                        this.indicators.children[this.options.position].nextSibling.nextSibling.classList.add('active');
+                        this.indicators.children[this.options.position].nextSibling.nextSibling.nextSibling.classList.add('active');
+                    }
                 }
             }
         }
