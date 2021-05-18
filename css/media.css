@@ -97,6 +97,9 @@
     body .underline {
         width: 240px;
     }
+    .modal-body img.pic {
+        height: 325px !important;
+    }
 }
 
 /* 375 px  IPhone6/7/8 */
@@ -107,6 +110,9 @@
     body .underline {
         width: 240px;
     }
+    .modal-body img.pic {
+        height: 325px !important;
+    }
 }
 
 /* 320 px  IPhone5/SE */
@@ -116,5 +122,8 @@
     }
     body .underline {
         width: 200px;
+    }
+    .modal-body img.pic {
+        height: 325px !important;
     }
 }
