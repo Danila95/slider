@@ -68,3 +68,53 @@
         font-size: 2rem;
     }
 }
+
+/* 1024 px  */
+@media (max-width: 1024px) {
+    .modal-window {
+        width: 800px !important;
+    }
+    body .underline {
+
+    }
+}
+
+/* 768 px  IPad */
+@media (max-width: 768px) {
+    .modal-window {
+        width: 740px !important;
+    }
+    body .underline {
+
+    }
+}
+
+/* 414 px  IPhone6/7/8 Plus */
+@media (max-width: 414px) {
+    .modal-window {
+        width: 400px !important;
+    }
+    body .underline {
+        width: 240px;
+    }
+}
+
+/* 375 px  IPhone6/7/8 */
+@media (max-width: 375px) {
+    .modal-window {
+        width: 350px !important;
+    }
+    body .underline {
+        width: 240px;
+    }
+}
+
+/* 320 px  IPhone5/SE */
+@media (max-width: 320px) {
+    .modal-window {
+        width: 300px !important;
+    }
+    body .underline {
+        width: 200px;
+    }
+}
