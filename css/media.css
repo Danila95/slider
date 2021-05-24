@@ -28,7 +28,6 @@
         margin-left: 0;
     }
 }
-
 @media (max-width: 767px) {
     body {
         font-size: 1.3rem;
@@ -57,6 +56,9 @@
     body .description {
         font-size: 2rem;
     }
+    .modal-window {
+        width: 740px !important;
+    }
 }
 
 @media (max-width: 448px) {
@@ -68,17 +70,49 @@
         font-size: 2rem;
     }
 }
-
+/* 680 px  */
+@media (max-width: 680px) {
+    .modal-window {
+        width: 660px !important;
+    }
+}
+/* 700 px  */
+@media (max-width: 700px) {
+    .modal-window {
+        width: 680px !important;
+    }
+}
+/* 720 px  */
+@media (max-width: 720px) {
+    .modal-window {
+        width: 700px !important;
+    }
+}
+/* 730 px  */
+@media (min-width: 700px) and (max-width: 730px) {
+    .modal-window {
+        width: 700px !important;
+    }
+}
+/* 780 px  */
+@media (max-width: 780px) {
+    .modal-window {
+        width: 760px !important;
+    }
+}
+/* 800 px  */
+@media (max-width: 800px) {
+    .modal-window {
+        width: 780px !important;
+    }
+}
+/*/////////////////////////////*/
 /* 1024 px  */
 @media (max-width: 1024px) {
     .modal-window {
         width: 800px !important;
     }
-    body .underline {
-
-    }
 }
-
 /* 768 px  IPad */
 @media (max-width: 768px) {
     .modal-window {
@@ -88,7 +122,15 @@
 
     }
 }
-
+/* 540 px  */
+@media (max-width: 540px) {
+    .modal-window {
+        width: 500px !important;
+    }
+    .modal-body img.pic {
+        height: 325px !important;
+    }
+}
 /* 414 px  IPhone6/7/8 Plus */
 @media (max-width: 414px) {
     .modal-window {
@@ -101,7 +143,6 @@
         height: 325px !important;
     }
 }
-
 /* 375 px  IPhone6/7/8 */
 @media (max-width: 375px) {
     .modal-window {
@@ -114,7 +155,6 @@
         height: 325px !important;
     }
 }
-
 /* 320 px  IPhone5/SE */
 @media (max-width: 320px) {
     .modal-window {
@@ -125,5 +165,11 @@
     }
     .modal-body img.pic {
         height: 325px !important;
+    }
+}
+/* 280 px  */
+@media (max-width: 280px) {
+    .modal-window {
+        width: 250px !important;
     }
 }
