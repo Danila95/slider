@@ -81,9 +81,9 @@ const winModal = function(options) {
             }
             closing = true;
             $modal.classList.remove('open');
-            $modal.classList.add('hide');
+            $modal.classList.add('hide-win');
             setTimeout(() => {
-                $modal.classList.remove('hide');
+                $modal.classList.remove('hide-win');
                 closing = false;
             }, ANIMATION_SPEED);
         },

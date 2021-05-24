@@ -6,8 +6,8 @@
     z-index: 1000;
 }
 
-.win-modal.hide .modal-overlay,
-.win-modal.hide .modal-window {
+.win-modal.hide-win .modal-overlay,
+.win-modal.hide-win .modal-window {
     opacity: 1;
     z-index: 1000;
 }
@@ -20,11 +20,11 @@
     background: rgba(0, 0, 0, .5);
 }
 
-.win-modal.hide .modal-window {
+.win-modal.hide-win .modal-window {
     transform: translateY(-200px);
 }
 
-.win-modal.hide .modal-overlay {
+.win-modal.hide-win .modal-overlay {
     background: rgba(0, 0, 0, 0);
 }
 
