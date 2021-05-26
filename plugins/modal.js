@@ -96,7 +96,8 @@ const winModal = function(options) {
     };
 
     window.onkeydown = function(event) { // при нажатии на клавишу Escape закрывает модальное окно
-        if (event.key === 'Escape') {
+        const attr = document.querySelector('.modal-overlay');
+        if (event.key === 'Escape' && attr.dataset.close) {
             modal.close();
         }
     };
