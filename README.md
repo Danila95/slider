@@ -1,4 +1,4 @@
-# slider-for-profkom
+# slider
 
 Данный слайдер усовершенствован на основе другого слайдера, который находится <a href="https://github.com/Danila95/plagin-slider-carousel">здесь</a> 
 - Это плагин простого слайдера, который написан на JavaScript
